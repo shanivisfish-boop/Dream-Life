@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dream Life</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:Arial,sans-serif;
+  background:#f5f5f5;
+  color:#222;
+  min-height:100vh;
+}
+header{
+  background:#fff;
+  padding:20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid #ddd;
+  position:sticky;
+  top:0;
+  z-index:5;
+}
+.logo{font-size:25px;font-weight:800}
+button{
+  border:0;
+  border-radius:12px;
+  padding:12px 18px;
+  font-size:15px;
+  cursor:pointer;
+}
+.primary{background:#222;color:white}
+.screen{display:none;padding:28px;max-width:1100px;margin:auto}
+.screen.active{display:block}
+.hero{
+  min-height:70vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+}
+.hero h1{font-size:60px;margin-bottom:15px}
+.hero p{font-size:20px;color:#666;margin-bottom:30px}
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  gap:18px;
+  margin-top:25px;
+}
+.card{
+  background:white;
+  border:1px solid #ddd;
+  border-radius:18px;
+  padding:20px;
+  cursor:pointer;
+  transition:.2s;
+}
+.card:hover{transform:translateY(-3px);box-shadow:0 8px 25px #0001}
+.card .emoji{font-size:45px;margin-bottom:12px}
+.card h3{margin-bottom:8px}
+.card p{color:#777}
+.nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  background:white;
+  border-top:1px solid #ddd;
+  display:none;
+  justify-content:space-around;
+  padding:10px;
+  z-index:10;
+}
+.nav button{background:none;color:#333}
+.back{margin-bottom:20px;background:#ddd}
+h2{font-size:34px;margin-bottom:8px}
+.subtitle{color:#777;margin-bottom:20px}
+@media(max-width:600px){
+  .hero h1{font-size:42px}
+  .screen{padding:20px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">Dream Life</div>
+  <button class="primary" onclick="newLife()">New Life</button>
+</header>
+
+<main>
+
+<section id="home" class="screen active">
+  <div class="hero">
+    <h1>Dream Life</h1>
+    <p>Create your character. Choose your world. Build your life.</p>
+    <button class="primary" onclick="startGame()">Start a New Life</button>
+  </div>
+</section>
+
+<section id="character" class="screen">
+  <button class="back" onclick="show('home')">← Back</button>
+  <h2>Create Your Character</h2>
+  <p class="subtitle">Choose your character.</p>
+
+  <div class="cards">
+    <div class="card" onclick="choose('character','Girl')">
+      <div class="emoji">👩🏻</div>
+      <h3>Girl</h3>
+      <p>Create a girl character</p>
+    </div>
+
+    <div class="card" onclick="choose('character','Boy')">
+      <div class="emoji">👦🏻</div>
+      <h3>Boy</h3>
+      <p>Create a boy character</p>
+    </div>
+  </div>
+</section>
+
+<section id="city" class="screen">
+  <button class="back" onclick="show('character')">← Back</button>
+  <h2>Choose Your City</h2>
+  <p class="subtitle">Your life starts somewhere in the world.</p>
+
+  <div class="cards">
+    <div class="card" onclick="choose('city','New York City')">
+      <div class="emoji">🗽</div>
+      <h3>New York City</h3>
+      <p>New York, USA</p>
+    </div>
+
+    <div class="card" onclick="choose('city','Los Angeles')">
+      <div class="emoji">🌴</div>
+      <h3>Los Angeles</h3>
+      <p>California, USA</p>
+    </div>
+
+    <div class="card" onclick="choose('city','Miami')">
+      <div class="emoji">🌊</div>
+      <h3>Miami</h3>
+      <p>Florida, USA</p>
+    </div>
+
+    <div class="card" onclick="choose('city','London')">
+      <div class="emoji">🇬🇧</div>
+      <h3>London</h3>
+      <p>United Kingdom</p>
+    </div>
+  </div>
+</section>
+
+<section id="neighborhood" class="screen">
+  <button class="back" onclick="show('city')">← Back</button>
+  <h2>Choose Your Neighborhood</h2>
+  <p class="subtitle">Where will you live?</p>
+
+  <div class="cards">
+    <div class="card" onclick="choose('neighborhood','Downtown')">
+      <div class="emoji">🏙️</div>
+      <h3>Downtown</h3>
+      <p>Buildings, shops and busy streets</p>
+    </div>
+
+    <div class="card" onclick="choose('neighborhood','Suburbs')">
+      <div class="emoji">🏡</div>
+      <h3>Suburbs</h3>
+      <p>Quiet streets and family homes</p>
+    </div>
+
+    <div class="card" onclick="choose('neighborhood','Beach Area')">
+      <div class="emoji">🏖️</div>
+      <h3>Beach Area</h3>
+      <p>Live close to the ocean</p>
+    </div>
+
+    <div class="card" onclick="choose('neighborhood','Luxury Area')">
+      <div class="emoji">✨</div>
+      <h3>Luxury Area</h3>
+      <p>Beautiful homes and exclusive streets</p>
+    </div>
+  </div>
+</section>
+
+<section id="homeChoice" class="screen">
+  <button class="back" onclick="show('neighborhood')">← Back</button>
+  <h2>Choose Your Home</h2>
+  <p class="subtitle">What kind of home will you live in?</p>
+
+  <div class="cards">
+    <div class="card" onclick="choose('home','Family House')">
+      <div class="emoji">🏡</div>
+      <h3>Family House</h3>
+      <p>Large house with a yard</p>
+    </div>
+
+    <div class="card" onclick="choose('home','Townhouse')">
+      <div class="emoji">🏘️</div>
+      <h3>Townhouse</h3>
+      <p>Multi-level home</p>
+    </div>
+
+    <div class="card" onclick="choose('home','Apartment')">
+      <div class="emoji">🏢</div>
+      <h3>Apartment</h3>
+      <p>Modern city apartment</p>
+    </div>
+
+    <div class="card" onclick="choose('home','Penthouse')">
+      <div class="emoji">🌆</div>
+      <h3>Penthouse</h3>
+      <p>Luxury apartment with views</p>
+    </div>
+  </div>
+</section>
+
+<section id="living" class="screen">
+  <button class="back" onclick="show('homeChoice')">← Back</button>
+  <h2>How Will You Live Here?</h2>
+  <p class="subtitle">Choose your living arrangement.</p>
+
+  <div class="cards">
+    <div class="card" onclick="choose('living','Rent')">
+      <div class="emoji">🔑</div>
+      <h3>Rent</h3>
+      <p>Pay monthly rent</p>
+    </div>
+
+    <div class="card" onclick="choose('living','Buy')">
+      <div class="emoji">🏠</div>
+      <h3>Buy</h3>
+      <p>Own your home</p>
+    </div>
+
+    <div class="card" onclick="choose('living','Managed Community')">
+      <div class="emoji">🏘️</div>
+      <h3>Managed Community</h3>
+      <p>Community services and maintenance</p>
+    </div>
+  </div>
+</section>
+
+<section id="world" class="screen">
+  <h2>Welcome to Your Life 🌎</h2>
+  <p class="subtitle" id="summary"></p>
+
+  <div class="cards">
+    <div class="card"><div class="emoji">🏠</div><h3>Home</h3><p>Design and customize your home.</p></div>
+    <div class="card"><div class="emoji">🗺️</div><h3>Map</h3><p>Explore your city.</p></div>
+    <div class="card"><div class="emoji">🏫</div><h3>School</h3><p>Go to school and meet people.</p></div>
+    <div class="card"><div class="emoji">🛍️</div><h3>Places</h3><p>Visit shops, restaurants and more.</p></div>
+  </div>
+</section>
+
+</main>
+
+<nav class="nav" id="nav">
+  <button onclick="show('world')">🏠<br>Home</button>
+  <button onclick="show('world')">🗺️<br>Map</button>
+  <button onclick="show('character')">👤<br>Character</button>
+  <button onclick="show('world')">📍<br>Places</button>
+</nav>
+
+<script>
+let life={
+  character:"",
+  city:"",
+  neighborhood:"",
+  home:"",
+  living:""
+};
+
+function show(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function startGame(){
+  life={character:"",city:"",neighborhood:"",home:"",living:""};
+  show('character');
+}
+
+function newLife(){
+  startGame();
+}
+
+function choose(type,value){
+  life[type]=value;
+
+  const next={
+    character:'city',
+    city:'neighborhood',
+    neighborhood:'homeChoice',
+    home:'living',
+    living:'world'
+  };
+
+  if(next[type]) show(next[type]);
+
+  if(type==='living'){
+    document.getElementById('summary').textContent=
+      life.character+" • "+life.city+" • "+life.neighborhood+
+      " • "+life.home+" • "+life.living;
+    document.getElementById('nav').style.display='flex';
+  }
+
+  localStorage.setItem('dreamLife',JSON.stringify(life));
+}
+</script>
+
+</body>
+  </html>
